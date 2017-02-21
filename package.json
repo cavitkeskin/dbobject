@@ -1,0 +1,23 @@
+{
+  "name": "dbobject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cavitkeskin/dbobject.git"
+  },
+  "author": "Cavit Keskin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cavitkeskin/dbobject/issues"
+  },
+  "homepage": "https://github.com/cavitkeskin/dbobject#readme",
+  "dependencies": {
+    "mysql": "^2.13.0",
+    "pg": "^6.1.2"
+  }
+}
