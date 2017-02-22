@@ -90,7 +90,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-	dbo.search(req.params.id).then(function(result){
+	dbo.get(req.params.id).then(function(result){
 		res.json(result)
 	}).catch(next)
 })
