@@ -14,14 +14,14 @@ describe('mysql', function(){
         }).catch(done)
     })
 
-    before('drop tables employee', function(done){
-        db.exec('drop table if exists employee;').then(function(result){
+    before('drop tables lobor', function(done){
+        db.exec('drop table if exists labor;').then(function(result){
             done();
         }).catch(done)
     })
 
-    before('drop tables lobor', function(done){
-        db.exec('drop table if exists labor;').then(function(result){
+    before('drop tables employee', function(done){
+        db.exec('drop table if exists employee;').then(function(result){
             done();
         }).catch(done)
     })
@@ -99,11 +99,12 @@ describe('mysql', function(){
 
     it('create labor', function(done){
         var sql = [ 'create table labor (',
-                        'employee int not null, ',
-                        'date date not null, ',
-                        'hours real not null, ',
-                        'rate real not null, ',
-                        'primary key(employee, date)',
+                        'employee int not null,',
+                        'date date not null,',
+                        'hours real not null,',
+                        'rate real not null,',
+                        'primary key(employee, date),',
+                        'foreign key(employee) references employee(id)',
                     ');'].join('\n')
         db.exec(sql).then(function(result){
             done()

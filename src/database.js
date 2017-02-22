@@ -2,7 +2,8 @@
 
 var util = require('util'),
 	_ = require('underscore'),
-	md5 = require('md5');
+	md5 = require('md5'),
+	DBObject = require('./dbobject');
 
 let SecretKey = 'Aks739@jS#491'
 
@@ -53,6 +54,10 @@ class Database {
 			})
 			return result;
 		})
+	}
+
+	dbobject(tablename, options){
+		return new DBObject(tablename, this, options)
 	}
 
 	encode(data, fields, map){
