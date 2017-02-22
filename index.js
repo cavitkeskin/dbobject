@@ -1,4 +1,5 @@
+'use strict';
 
-modules.exports = function(){
-    console.log('dbobject ver 1.0.1')
+module.exports = {
+    MySQL: require('./src/mysql.js')
 }

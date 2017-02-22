@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -b test/mysql.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,13 @@
   },
   "homepage": "https://github.com/cavitkeskin/dbobject#readme",
   "dependencies": {
+    "debug": "^2.6.1",
+    "md5": "^2.2.1",
     "mysql": "^2.13.0",
     "pg": "^6.1.2"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^3.2.0"
   }
 }
