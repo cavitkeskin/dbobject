@@ -2,7 +2,7 @@
   "name": "dbobject",
   "version": "0.0.5",
   "description": "Simplified SQL generator, DBObject with CRUD functions.",
-  "keywords": ["mysql", "postgresql", "database", "object", "crud"],
+  "keywords": ["mysql", "postgresql", "database", "object", "crud", "promise"],
   "main": "index.js",
   "scripts": {
     "test": "mocha -b test/mysql.js test/mysql_dbo.js"

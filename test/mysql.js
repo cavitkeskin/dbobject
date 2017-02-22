@@ -1,18 +1,11 @@
 
 var config = require('./config.json').mysql,
-    MySQL = require('../index').MySQL,
+    db = require('../index').mysql(config.database, config.user, config.password, config.host),
     assert = require('assert'),
     expect = require('expect.js');
 
-var db;
 
 describe('mysql', function(){
-    before('connect', function(done){
-        db = new MySQL(config.storage, config.username, config.password, config.host);
-        db.connect().then(function(){
-            done()
-        }).catch(done)
-    })
 
     before('drop tables lobor', function(done){
         db.exec('drop table if exists labor;').then(function(result){

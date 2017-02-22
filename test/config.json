@@ -1,7 +1,7 @@
 {
     "mysql": {
-        "storage": "dbobject",
-        "username": "root",
+        "database": "dbobject",
+        "user": "root",
         "password": null,
         "host": "localhost"
     }

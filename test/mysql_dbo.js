@@ -1,20 +1,22 @@
 var config = require('./config.json').mysql,
-    MySQL = require('../index').MySQL,
+    db = require('../index').mysql(config.database, config.user, config.password, config.host);
     assert = require('assert'),
     expect = require('expect.js');
 
-var db, dbo;
+var dbo;
 
 describe('mysql.dbobject', function(){
     before('connect', function(done){
-        db = new MySQL(config.storage, config.username, config.password, config.host);
-        db.connect().then(function(){
-            dbo = db.dbobject('employee')
-            done()
-        }).catch(done)
+        dbo = db.dbobject('employee')
+        done()
+        // db.connect().then(function(){
+        //     dbo = db.dbobject('employee')
+        //     done()
+        // }).catch(done)
     })
 
     it('search', function(done){
+
         dbo.search().then(function(result){
             //console.log(result)
             expect(result).to.be.an('array')
