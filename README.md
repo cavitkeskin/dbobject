@@ -5,12 +5,13 @@
 you need to initialize this module with calling mysql or postgresql methods
 
 ```javascript
-    var db = require('dbobject');
+var db = require('dbobject');
 
-    // initialize for mysql
-    db.mysql('database', 'username', 'password', 'host');
-    // initialize for postgresql
-    db.postgresql('database', 'username', 'password', 'host');
+// initialize for mysql
+db.mysql('database', 'username', 'password', 'host');
+
+// OR initialize for postgresql
+db.postgresql('database', 'username', 'password', 'host');
 
 ```
 
@@ -19,7 +20,7 @@ you need to initialize this module with calling mysql or postgresql methods
 just require dbobject when you need to reach database
 
 ```javascript
-    var db = require('dbobject')
+var db = require('dbobject')
 ```
 
 ### methods
@@ -42,7 +43,7 @@ just require dbobject when you need to reach database
 
 ## Usage
 
-### sample usage for database queries
+- sample usage for database queries
 
 ```javascript
 var db = require('dbobject')
@@ -59,7 +60,7 @@ db.query('select * from employee').then(function(result){
 })
 ```
 
-### Sample usage with dbobject (simplified crud functions for api services)
+- Sample usage with dbobject (simplified crud functions for api services)
 
 ```javascript
 var db = require('dbobject')
@@ -75,7 +76,7 @@ dbo.search({title: 'manager'}).then(function(result){
 })
 ```
 
-### Sample nodejs/express module for api services  
+- Sample nodejs/express module for api services  
 
 ```javascript
 var express = require('express'),
