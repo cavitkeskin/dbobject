@@ -42,7 +42,7 @@ just require dbobject when you need to reach database
 
 ## Usage
 
-sample usage for database queries
+### sample usage for database queries
 
 ```javascript
 var db = require('dbobject')
@@ -59,7 +59,7 @@ db.query('select * from employee').then(function(result){
 })
 ```
 
-sample usage with dbobject (simplified crud functions for api services)
+### Sample usage with dbobject (simplified crud functions for api services)
 
 ```javascript
 var db = require('dbobject')
@@ -75,7 +75,7 @@ dbo.search({title: 'manager'}).then(function(result){
 })
 ```
 
-sample nodejs/express module for api usage  
+### Sample nodejs/express module for api services  
 
 ```javascript
 var express = require('express'),
@@ -101,13 +101,13 @@ router.post('/', (req, res, next) => {
 	}).catch(next)
 })
 
-router.put('/id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
 	dbo.update(req.params.id, req.body).then(function(result){
 		res.json(result)
 	}).catch(next)
 })
 
-router.delete('/id', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
 	dbo.delete(req.params.id).then(function(result){
 		res.json(result)
 	}).catch(next)
