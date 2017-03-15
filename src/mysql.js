@@ -4,8 +4,8 @@ var mysql = require('mysql'),
     _ = require('underscore'),
     util = require('util'),
 	Database = require('./database'),
-    debug = require('debug')('lib:mysql'),
-	error = require('debug')('shiptory:error'),
+    debug = require('debug')('dbobject:mysql'),
+	error = require('debug')('dbobject:error'),
 	tables = [];
 
 class MySQL extends Database {

@@ -14,7 +14,7 @@
 
 */
 
-var instance = null;
+var instance = undefined;
 
 class Helper {
     get instance(){
@@ -22,7 +22,7 @@ class Helper {
     }
 
     mysql(database, user, pass, host){
-        var MySQL = require('./src/mysql.js')
+        var MySQL = require('./src/mysql')
         var db = new MySQL(database, user, pass, host)
         if(!instance) instance = db
         return db
@@ -74,52 +74,7 @@ class Helper {
     end(){
         return instance.end();
     }
+
 }
-
-/*
-    # initialize (setting up application)
-    var DB = require('dbobject');
-    var db = DB.mysql(...)
-    -- or --
-    var db = require('dbobject').mysql(...);
-
-    # get db instance anywhere
-    var db = require('dbobject').instance;
-
-    # when you need to new connection
-    var db = require('dbobject').clone()
-
-    # when you need to get new instance
-    var db = require('dbobject').mysql(...)
-
-    # dbobject methods
-    property instance
-    function mysql(...)
-    function postgresql(...)
-    function clone(...)
-
-    # inherited from instance
-    function query()
-    function exec()
-    function first()
-    function value()
-    function values()
-    function keyValue()
-    function dbobject()
-
-    # entity
-    var dbo = require('dbobject').dbobject(tablename)
-    -- or --
-    var dbo = require('dbobject').instance.dbobject(tablename)
-
-    # entity methods
-    dbo.select()
-    dbo.insert()
-    dbo.update()
-    dbo.delete()
-
-
-
-*/
 
 module.exports = new Helper();

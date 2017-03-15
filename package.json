@@ -1,6 +1,6 @@
 {
   "name": "dbobject",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Simplified SQL generator, DBObject with CRUD functions.",
   "keywords": ["mysql", "postgresql", "database", "object", "crud", "promise"],
   "main": "index.js",

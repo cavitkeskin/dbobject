@@ -210,14 +210,20 @@ class DBObject{
 	}
 
 	// ---==[ GET ]==---
-	getSQL(id){
+	getSQL(id, options){
+        options = _.defaults(options||{}, this.options)
+
 		var sql = {field: {}, table: {}, where: {}};
 		if(this.keyfields.join(',') != 'id')
 			sql['field']['id'] = util.format("concat_ws('-', %s)", _.map(this.keyfields, function(field){ return 't.'+field; }).join(', '));
 
-		_.each(_.difference(_.keys(this.fields), this.hiddenfields), function(field){
+        _.each(_.difference(options.pick, options.omit), function(field){
 			sql['field'][field] = 't.'+field;
 		});
+
+		// _.each(_.difference(_.keys(this.fields), this.hiddenfields), function(field){
+		// 	sql['field'][field] = 't.'+field;
+		// });
 
 		sql['table']['t'] = this.db.identify(this.viewname || this.tablename) + ' as t';
 
@@ -227,10 +233,10 @@ class DBObject{
 		return {sql: sql, param: param}
 	}
 
-	get(id){
+	get(id, options){
 		var db = this.db;
 		return this.initialize()
-			.then(this.getSQL.bind(this, id))
+			.then(this.getSQL.bind(this, id, options))
 			.then(function(result){ return db.query(result.sql, result.param) })
 			.then(function(data){ return data[0] || null })
 	}
