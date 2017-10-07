@@ -8,37 +8,41 @@ var mysql = require('mysql'),
 	error = require('debug')('dbobject:error'),
 	tables = [];
 
+function queryFormat(query, values) {
+    if (!values) return query;
+    //return query.replace(/\:(\w+)/g, function(txt, key){
+    var sql = query.replace(/\:(\w+)/g, function(txt, key){
+        if (values.hasOwnProperty(key)) {
+            return this.escape(values[key]);
+        }
+        return txt;
+    }.bind(this));
+    //debug('Format SQL:', query, values, sql);
+    return sql;
+};
+
+
+function onError(err){
+    //  { [Error: Connection lost: The server closed the connection.] fatal: true, code: 'PROTOCOL_CONNECTION_LOST' }
+    if(!err.fatal) return;
+    if(err.code != 'PROTOCOL_CONNECTION_LOST')
+        throw err;
+
+    error('MYSQL ReConnecting on lost connection', err.stack);
+    //this.conn = null; why did you set up to null?!
+    //this.conn.destroy();
+    this.connect().catch((err)=>{
+        debug('couldnt connect', err);
+        process.exit(1);
+    });
+}
+
 class MySQL extends Database {
 
 	constructor (database, user, pass, host){
 		super(database, user, pass, host);
-        this.initialize();
+        this.connect();
 	}
-
-    initialize(){
-        this.conn = mysql.createConnection(this.config);
-
-		this.conn.config.queryFormat = function (query, values) {
-			if (!values) return query;
-			return query.replace(/\:(\w+)/g, function (txt, key) {
-				if (values.hasOwnProperty(key)) {
-					return this.escape(values[key]);
-				}
-				return txt;
-			}.bind(this));
-		};
-
-		this.conn.on('error', _.bind(function(err){
-			//  { [Error: Connection lost: The server closed the connection.] fatal: true, code: 'PROTOCOL_CONNECTION_LOST' }
-			if(!err.fatal) return;
-			if(err.code != 'PROTOCOL_CONNECTION_LOST')
-				throw err;
-
-			error('MYSQL ReConnecting on lost connection', err.stack);
-			this.conn = null;
-			this.connect();
-		}, this));
-    }
 
 	get Provider(){ return 'MySQL'; }
 
@@ -48,17 +52,25 @@ class MySQL extends Database {
 
 	get iLike(){ return 'like'; }
 
-	connect(callback){
+	connect(){
         var self = this;
+        this.conn = mysql.createConnection(this.config);
+        this.conn.config.queryFormat = queryFormat;
+
         return new Promise(function(resolve, reject){
             self.conn.connect(function(err){
-                return err ? reject(err) : resolve()
+                if(err) {
+                    reject(err);
+                } else {
+                    self.conn.on('error', onError.bind(self));
+                    resolve();
+                }
             });
         })
 	}
 
 	static escape(val){
-		return val;
+        return mysql.escape(val);
 	}
 
 	query(sql, param){
